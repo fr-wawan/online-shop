@@ -11,10 +11,13 @@
   >
     <Modal />
   </div>
-  <div class="mt-20" v-else>
-    <div class="flex justify-center">
+  <div class="mt-20 container mx-auto" v-else>
+    <div class="flex justify-center gap-10">
       <div class="w-full">
         <CheckoutForm />
+      </div>
+      <div class="w-full">
+        <OrderSummary />
       </div>
     </div>
   </div>
@@ -25,6 +28,7 @@ import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 import Modal from "../../components/Modal.vue";
 import CheckoutForm from "../../components/checkout/CheckoutForm.vue";
+import OrderSummary from "../../components/checkout/OrderSummary.vue";
 
 const store = useStore();
 onMounted(() => {});

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded shadow-md">
+  <div class="bg-white rounded shadow-md p-10">
     <h1 class="text-xl font-semibold">Billing Details</h1>
     <div class="md:flex gap-5">
       <Input
@@ -18,6 +18,13 @@
         v-model="profile.last_name"
       ></Input>
     </div>
+    <Input
+      name="address"
+      label="Address*"
+      placeholder="Your Address"
+      v-model="profile.address"
+      class="w-full"
+    ></Input>
     <div class="md:flex gap-5">
       <div class="my-5 w-full">
         <label for="">City</label>
@@ -73,6 +80,18 @@
       class="w-full"
       v-model="profile.post_code"
     ></Input>
+
+    <div class="my-9">
+      <h3 class="text-lg" for="user_notes">Additional Information</h3>
+      <textarea
+        name="user_notes"
+        class="block border border-gray-300 mt-3 rounded md:w-full w-full p-2.5 placeholder:text-sm placeholder:p-1 placeholder:text-gray-400"
+        id="user_notes"
+        cols="30"
+        rows="10"
+        placeholder="Order Notes (Optional)"
+      ></textarea>
+    </div>
   </div>
 </template>
 
