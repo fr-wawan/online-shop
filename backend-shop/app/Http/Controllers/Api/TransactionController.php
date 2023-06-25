@@ -29,6 +29,7 @@ class TransactionController extends Controller
             'post_code' => $request->post_code,
             'address' => $request->address,
             'country' => $request->country,
+            'states' => $request->states,
             'city' => $request->city,
             'payment_method' => $paymentMethod,
             'customer_id' => auth()->guard('api')->user()->id,
@@ -41,14 +42,25 @@ class TransactionController extends Controller
         $customer = Customer::find(auth()->guard('api')->user()->id);
         $customer->cart()->delete();
         $quantities = $request->input('quantity');
-        $productIDs = $request->input('productIDs');
+        $productIds = $request->input('productIds');
 
-        foreach ($productIDs as $index => $productId) {
+        foreach ($productIds as $index => $productId) {
             $quantity = $quantities[$index];
             $transaction->product()->attach($productId, ['quantity' => $quantity]);
         }
 
         return $transaction;
+    }
+
+    public function index()
+    {
+        $transactions = Transaction::with('product')->where('customer_id', auth()->guard('api')->user()->id)->latest()->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'List Data Transactions : ' . auth()->guard('api')->user()->name,
+            'data' => $transactions
+        ], 200);
     }
 
     public function paymentCod(Request $request)
@@ -61,7 +73,6 @@ class TransactionController extends Controller
             'address' => 'required',
             'country' => 'required',
             'city' => 'required',
-            'user_notes' => 'required'
         ]);
 
 
@@ -84,7 +95,6 @@ class TransactionController extends Controller
             'address' => 'required',
             'country' => 'required',
             'city' => 'required',
-            'user_notes' => 'required'
         ]);
 
 
@@ -116,7 +126,7 @@ class TransactionController extends Controller
 
     public function show($invoice)
     {
-        $transaction = Transaction::with('food')->where('invoice', $invoice)->first();
+        $transaction = Transaction::with('product')->where('invoice', $invoice)->first();
 
         if ($transaction) {
             return response()->json([

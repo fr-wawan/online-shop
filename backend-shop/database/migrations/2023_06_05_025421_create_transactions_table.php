@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('phone');
             $table->integer('post_code');
             $table->text('address');
+            $table->string('country');
             $table->string('states');
             $table->string('city');
             $table->enum('payment_method', ['cod', 'midtrans']);

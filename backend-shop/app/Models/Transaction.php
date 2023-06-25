@@ -15,7 +15,7 @@ class Transaction extends Model
 
     public function product()
     {
-        return $this->belongsToMany(Food::class)->withPivot('quantity');
+        return $this->belongsToMany(Product::class)->withPivot('quantity');
     }
 
     public function customer()

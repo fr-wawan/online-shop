@@ -1,0 +1,68 @@
+import Api from "../../api/Api";
+
+const order = {
+  namespaced: true,
+
+  state: {
+    orders: [],
+    order: {},
+  },
+
+  mutations: {
+    SET_ORDERS(state, orders) {
+      state.orders = orders;
+    },
+    SET_DETAILS(state, order) {
+      state.order = order;
+    },
+  },
+
+  actions: {
+    async getOrders({ commit }) {
+      const token = localStorage.getItem("token");
+
+      Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      await Api.get("/transaction")
+        .then((response) => {
+          commit("SET_ORDERS", response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async detailsProduct({ commit }, invoice) {
+      const token = localStorage.getItem("token");
+
+      Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      await Api.get(`/transaction/${invoice}`)
+        .then((response) => {
+          commit("SET_DETAILS", response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async storeOrder({ commit }, { formData, paymentMethod }) {
+      try {
+        const token = localStorage.getItem("token");
+
+        Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        const response = await Api.post(
+          `/transaction/${paymentMethod}`,
+          formData
+        );
+
+        return response;
+      } catch (error) {
+        throw error;
+      }
+    },
+  },
+
+  getters: {},
+};
+
+export default order;

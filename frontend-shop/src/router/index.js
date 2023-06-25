@@ -38,6 +38,14 @@ const routes = [
     },
   },
   {
+    path: "/orders/:invoice",
+    name: "detailsOrder",
+    component: () => import("../views/order/DetailsOrder.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/",
     name: "home",
     component: () => import("../views/Home/Home.vue"),

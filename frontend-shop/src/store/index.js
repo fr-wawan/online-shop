@@ -5,6 +5,7 @@ import product from "./modules/product";
 import category from "./modules/category";
 import paginationProduct from "./modules/paginationProduct";
 import cart from "./modules/cart";
+import order from "./modules/order";
 
 export default createStore({
   modules: {
@@ -14,5 +15,6 @@ export default createStore({
     category,
     paginationProduct,
     cart,
+    order,
   },
 });

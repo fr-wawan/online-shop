@@ -4,16 +4,17 @@
     <p class="text-gray-400 mt-5 flex items-center justify-center">
       Home
       <img src="../../assets/images/greater-than.png" alt="" width="30" />
-      <span class="text-white"> Cart</span>
+      <span class="text-white">Cart</span>
     </p>
   </Hero>
   <div class="mt-5">
+    {{ carts }}
     <div
       class="rounded-lg xl:w-[1000px] mx-auto w-full bg p-10 lg:w-10/12"
       v-motion-fade
     ></div>
 
-    <div class="w-7/12 mx-auto" v-if="carts.length > 0">
+    <div class="w-7/12 mx-auto">
       <Table
         :headers="[
           'Delete',
@@ -64,6 +65,7 @@
           Continue Shopping
         </router-link>
         <router-link
+          v-if="carts.length > 0"
           to="/checkout"
           class="bg-blue-500 hover:outline-1 outline hover: hover:outline-blue-500 hover:text-blue-500 hover:bg-white transition-all duration-300 ease-in-out rounded-md text-white p-4 px-5"
         >
@@ -72,12 +74,6 @@
       </div>
 
       <div>tes</div>
-    </div>
-
-    <div v-else>
-      <div class="w-7/12 mx-auto">
-        <ContentLoader />
-      </div>
     </div>
   </div>
 </template>

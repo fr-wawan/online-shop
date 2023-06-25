@@ -27,7 +27,7 @@
     ></Input>
     <div class="md:flex gap-5">
       <div class="my-5 w-full">
-        <label for="">City</label>
+        <label for="">Country</label>
 
         <select
           v-model="profile.country"
@@ -47,7 +47,7 @@
       </div>
 
       <div class="my-5 w-full">
-        <label for="">City</label>
+        <label for="">States</label>
         <select
           name="states"
           id="states"
@@ -90,6 +90,8 @@
         cols="30"
         rows="10"
         placeholder="Order Notes (Optional)"
+        v-model="user_notes"
+        @input="$emit('getNotes', user_notes)"
       ></textarea>
     </div>
   </div>
@@ -107,6 +109,8 @@ const countries = countryData;
 const profile = computed(() => {
   return store.state.profile.profile;
 });
+
+const user_notes = ref("");
 
 const filteredStates = computed(() => {
   const profileCountry = profile.value.country;

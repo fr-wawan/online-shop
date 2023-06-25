@@ -7,6 +7,9 @@ const mixins = {
       });
       return formatter.format(value);
     },
+    uppercaseLetter(value) {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    },
   },
 };
 
