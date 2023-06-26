@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <div class="border p-5">
+  <div class="w-10/12 mx-auto">
+    <div class="border rounded p-5">
       <h1 class="text-xl font-semibold">Order Summary</h1>
       <div v-for="cart in carts">
-        <div class="flex justify-between mt-5 items-center mb-5">
+        <div
+          class="flex flex-col md:flex-row justify-between mt-5 items-center mb-5"
+        >
           <img
             :src="`https://source.unsplash.com/1200x1000?${cart.product.title}`"
             class="rounded-lg w-20"
@@ -19,10 +21,12 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="border mt-10 flex justify-between p-7 text-lg font-semibold">
-    <h3>Total :</h3>
-    <h3>{{ formatPrice(total) }}</h3>
+    <div
+      class="border mt-10 flex justify-between p-7 text-lg font-semibold rounded"
+    >
+      <h3>Total :</h3>
+      <h3>{{ formatPrice(total) }}</h3>
+    </div>
   </div>
 </template>
 

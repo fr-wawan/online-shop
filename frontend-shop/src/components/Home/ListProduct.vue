@@ -1,13 +1,19 @@
 <template>
-  <div class="container mx-auto mt-20">
+  <div class="container mx-auto mt-10">
     <div class="mb-5 md:mx-16 mx-auto xl:mx-auto">
       <div class="">
-        <h1 class="text-2xl mb-2 font-semibold">Top Rated Products</h1>
+        <h1 class="text-2xl mb-2 font-semibold">
+          <slot />
+        </h1>
       </div>
       <p class="border border-b-gray-200"></p>
     </div>
-    <div class="flex flex-wrap gap-5" v-if="products.length > 0">
-      <Card :product="product" v-for="product in products" :key="product.id" />
+    <div class="flex flex-wrap gap-5" v-if="props.products.length > 0">
+      <Card
+        :product="product"
+        v-for="product in props.products"
+        :key="product.id"
+      />
     </div>
     <div class="flex flex-wrap gap-5" v-else>
       <div
@@ -30,7 +36,10 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const products = computed(() => {
-  return store.state.product.popularProducts;
+const props = defineProps({
+  products: {
+    type: Array,
+    required: true,
+  },
 });
 </script>

@@ -2,12 +2,14 @@
   <div class="overflow-x-auto">
     <header class="bg-white py-4 shadow-lg fixed top-0 left-0 right-0 z-10">
       <nav
-        class="flex justify-around xl:justify-between xl:mx-20 md:p-5 items-center"
+        class="flex justify-around xl:justify-between xl:mx-20 md:mx-10 md:p-5 items-center"
       >
-        <router-link to="/" class="md:text-xl text-blue-500 font-bold text-lg"
+        <router-link
+          to="/"
+          class="md:text-lg xl:text-xl text-blue-500 font-bold text-lg"
           >GROCERY SHOP</router-link
         >
-        <div class="w-8/12 gap-4 hidden md:flex justify-center min-w-fit">
+        <div class="w-6/12 gap-4 hidden md:flex justify-center min-w-fit">
           <router-link to="/" active-class="text-blue-500">Home</router-link>
 
           <router-link to="/shop" active-class="text-blue-500"
@@ -22,55 +24,25 @@
         </div>
 
         <div class="flex items-center gap-5">
-          <a href="">
+          <router-link to="/" href="">
             <SearchIcon />
-          </a>
-
-          <router-link to="/cart" v-if="store.getters['auth/isLoggedIn']">
-            <CartIcon />
           </router-link>
-          <div
-            class="flex items-center"
-            @click="toggleDropDown"
+
+          <router-link
+            to="/cart"
             v-if="store.getters['auth/isLoggedIn']"
-            v-click-outside-element="closeDropDown"
+            class="flex items-center"
           >
-            <img
-              :src="
-                profile?.avatar?.includes('storage')
-                  ? `http://localhost:8000${profile.avatar}`
-                  : profile.avatar
-              "
-              class="rounded-full w-9 cursor-pointer object-cover"
-            />
-            <DownIcon />
-            <div
-              class="z-10 bg-white absolute md:right-28 right-20 top-20 rounded-lg shadow w-44"
-              v-if="isDropDown"
+            <CartIcon />
+            <span
+              class="item-count bg-red-500 text-white font-bold text-xs w-5 h-5 flex items-center justify-center rounded-full -ml-3 md:-ml-5"
+              v-if="typeof cartCount == 'number' && cartCount > 0"
+              >{{ cartCount }}</span
             >
-              <ul class="py-2 text-sm text-gray-700">
-                <li>
-                  <router-link
-                    :to="{ name: 'orders' }"
-                    class="block px-4 py-2 hover:bg-gray-200"
-                    >My Orders</router-link
-                  >
-                </li>
-                <li>
-                  <router-link
-                    :to="{ name: 'profile' }"
-                    class="block px-4 py-2 hover:bg-gray-200"
-                    >Edit Profile</router-link
-                  >
-                </li>
-                <li>
-                  <a class="block cursor-pointer px-4 py-2 hover:bg-gray-200"
-                    >Logout</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
+          </router-link>
+
+          <HamburgerDropDown />
+          <ProfileDropDown />
         </div>
       </nav>
     </header>
@@ -81,35 +53,26 @@
 import { ref, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 import { useToast } from "vue-toastification";
+import { useRouter } from "vue-router";
 
 import SearchIcon from "./Logo/SearchIcon.vue";
 import CartIcon from "./Logo/CartIcon.vue";
-import DownIcon from "./Logo/DownIcon.vue";
+import ProfileDropDown from "./Header/ProfileDropDown.vue";
+import HamburgerDropDown from "./Header/HamburgerDropDown.vue";
 
-let isShow = ref(false);
-const isDropDown = ref(false);
 const store = useStore();
 const toast = useToast();
+const router = useRouter();
 
 onMounted(() => {
   store.dispatch("profile/getProfile");
+  store.dispatch("cart/getCart");
 });
 
-const profile = computed(() => {
-  return store.state.profile.profile;
+const cartCount = computed(() => {
+  return store.state.cart.count;
 });
 
-function changeShow() {
-  isShow.value = isShow.value == false ? true : false;
-}
-
-function toggleDropDown() {
-  isDropDown.value = !isDropDown.value;
-}
-
-function closeDropDown() {
-  isDropDown.value = false;
-}
 const isMobile = ref(false);
 const isTablet = ref(false);
 
@@ -122,3 +85,36 @@ function checkScreenSize() {
 window.addEventListener("load", checkScreenSize);
 window.addEventListener("resize", checkScreenSize);
 </script>
+
+<style>
+.badge {
+  position: absolute;
+  top: 29px;
+  right: 175px;
+  padding: 5px 10px;
+  border-radius: 100%;
+  background: red;
+  color: white;
+  font-size: 10px;
+}
+
+.cart {
+  display: inline-flex;
+  align-items: center;
+}
+
+.item-count {
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px;
+  border-radius: 50%;
+  margin-left: -20px;
+  margin-top: -19px;
+  z-index: 1;
+  text-align: center;
+  height: 25px;
+  width: 25px;
+}
+</style>

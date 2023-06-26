@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-20 w-3/12 mx-5">
+  <div class="mt-20 w-10/12 md:w-3/12 mx-auto">
     <h2 class="text-xl uppercase font-semibold">Explore</h2>
     <div class="border border-b"></div>
     <div class="mt-5">

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-10">
+  <div class="md:flex w-10/12 mx-auto gap-10">
     <button
       class="p-3 hover:outline outline-1 hover:outline-blue-700 hover:bg-white hover:text-blue-700 transition-all duration-300 ease-in-out bg-blue-700 w-full mt-5 text-white rounded"
       @click.prevent="submitTransaction('cod')"
@@ -17,9 +17,11 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 const store = useStore();
+const router = useRouter();
 
 onMounted(() => {
   store.dispatch("cart/getCart");
@@ -69,12 +71,16 @@ function submitTransaction(paymentMethod) {
     formData.append("productIds[]", cart.id);
     formData.append("quantity[]", cart.quantity);
   });
-  console.log(carts.value);
 
   formData.append("total", total.value);
 
-  store.dispatch("order/storeOrder", { formData, paymentMethod }).then(() => {
-    console.log("Success");
-  });
+  store
+    .dispatch("order/storeOrder", { formData, paymentMethod })
+    .then((response) => {
+      router.push({
+        name: "detailsOrder",
+        params: { invoice: response.invoice },
+      });
+    });
 }
 </script>

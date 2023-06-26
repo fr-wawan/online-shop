@@ -1,7 +1,6 @@
 <template>
   <div
-    v-motion-slide-visible-once-bottom
-    class="flex flex-col xl:mb-10 md:mb-5 mb-2 bg-white p-5 text-center rounded shadow-md flex-grow-0 shrink-0 basis-[23rem] mx-auto"
+    class="flex flex-col xl:mb-10 md:mb-5 mb-2 bg-white p-5 text-center rounded shadow-md flex-grow-0 shrink-0 md:basis-[23rem] mx-auto basis-[17rem] md:mx-auto"
   >
     <router-link
       :to="{ name: 'detailsProduct', params: { slug: props.product.slug } }"

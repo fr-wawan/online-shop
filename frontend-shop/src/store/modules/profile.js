@@ -25,6 +25,10 @@ const profile = {
           commit("SET_PROFILE", response.data.data);
         })
         .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            return;
+          }
+
           console.log(error);
         });
     },

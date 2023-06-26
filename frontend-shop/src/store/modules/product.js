@@ -70,17 +70,42 @@ const product = {
         });
     },
 
-    getLoadMore({ commit }, nextPage) {
-      Api.get(`/product/newest?page=${nextPage}`).then((response) => {
-        commit("SET_LOADMORE", response.data.data.data);
+    searchProduct({ commit }, querySearch = "") {
+      const token = localStorage.getItem("token");
 
-        if (response.data.data.current_page < response.data.data.last_page) {
-          commit("SET_NEXTEXISTS", true);
-          commit("SET_NEXTPAGE", response.data.data.current_page + 1);
-        } else {
-          commit("SET_NEXTEXISTS", false);
-        }
-      });
+      Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      Api.get(`/product/newest?q=${querySearch}`)
+        .then((response) => {
+          commit("SET_PRODUCT", response.data.data.data);
+
+          if (response.data.data.current_page < response.data.data.last_page) {
+            commit("SET_NEXTEXISTS", true);
+            commit("SET_NEXTPAGE", response.data.data.current_page + 1);
+          } else {
+            commit("SET_NEXTEXISTS", false);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    getLoadMore({ commit }, { nextPage, searchQuery = "" }) {
+      Api.get(`/product/newest?q=${searchQuery}&page=${nextPage}`)
+        .then((response) => {
+          commit("SET_LOADMORE", response.data.data.data);
+
+          if (response.data.data.current_page < response.data.data.last_page) {
+            commit("SET_NEXTEXISTS", true);
+            commit("SET_NEXTPAGE", response.data.data.current_page + 1);
+          } else {
+            commit("SET_NEXTEXISTS", false);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

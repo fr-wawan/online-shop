@@ -7,9 +7,10 @@
       <span class="text-white"> Shop</span>
     </p>
   </Hero>
-  <div class="flex container mx-auto gap-2">
+
+  <div class="flex flex-col-reverse md:flex-row container mx-auto gap-2">
     <div class="container mx-auto mt-20">
-      <div class="mb-5 md:mx-16 mx-auto xl:mx-auto">
+      <div class="mb-5 mx-auto w-10/12 md:w-[97%]">
         <div class="">
           <h1 class="text-2xl mb-2 font-semibold">All Products</h1>
         </div>

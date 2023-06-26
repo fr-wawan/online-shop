@@ -1,5 +1,8 @@
 <template>
-  <div class="fixed z-10 overflow-y-auto top-0 w-full left-0" id="modal">
+  <div
+    class="fixed z-10 overflow-y-auto mt-80 md:mt-0 top-0 w-full left-0"
+    id="modal"
+  >
     <div
       class="flex items-center justify-center min-height-100vh pt-4 px-4 pb-20 text-center sm:block sm:p-0"
     >
@@ -17,12 +20,12 @@
       >
         <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
           <h1 class="text-xl font-semibold">
-            Please Complete The Profile First
+            <slot />
           </h1>
         </div>
         <div class="bg-gray-200 px-4 py-3 text-right">
           <router-link
-            to="/profile"
+            :to="link"
             type="button"
             class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-700 mr-2"
           >
@@ -34,4 +37,8 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps({
+  link: String,
+});
+</script>

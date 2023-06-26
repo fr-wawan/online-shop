@@ -31,7 +31,6 @@ const paginationProduct = {
       Api.get(`/product/newest?category_id=${category_id}`)
         .then((response) => {
           commit("SET_PRODUCTS", response.data.data);
-          x``;
         })
         .catch((error) => {
           console.log(error);

@@ -47,7 +47,6 @@
           </button>
         </form>
       </div>
-      <div class="my-20 invisible">test</div>
     </PageTransition>
   </div>
 </template>

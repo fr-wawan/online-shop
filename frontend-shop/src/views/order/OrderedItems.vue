@@ -6,16 +6,16 @@
     <h1 class="text-xl border-b pb-3 font-semibold">Ordered Items</h1>
 
     <div v-for="product in order.product" class="border-b pb-5">
-      <div class="flex justify-between items-center mt-5">
+      <div class="flex flex-col md:flex-row justify-between items-center mt-5">
         <img
           :src="`https://source.unsplash.com/1200x1000?${product.title}`"
           class="rounded-lg w-20"
           alt=""
         />
-        <h3 class="text-lg font-semibold">{{ product.title }}</h3>
+        <h3 class="md:text-lg my-3 font-semibold">{{ product.title }}</h3>
 
-        <p>Quantity : {{ product.pivot.quantity }}</p>
-        <p class="flex gap-2 items-center">
+        <p class="mb-3">Quantity : {{ product.pivot.quantity }}</p>
+        <p class="flex mb-3 gap-2 items-center">
           {{ formatPrice(product.price) }} <span>x</span>
           {{ product.pivot.quantity }}
         </p>
@@ -26,8 +26,8 @@
       </div>
     </div>
 
-    <div class="mt-7 flex justify-between items-center">
-      <p class="font-semibold">Order Notes : {{ order.user_notes }}</p>
+    <div class="mt-7 flex flex-col md:flex-row justify-between items-center">
+      <p class="font-semibold mb-5">Order Notes : {{ order.user_notes }}</p>
       <h3 class="font-semibold text-xl">
         Total : {{ formatPrice(order.total) }}
       </h3>

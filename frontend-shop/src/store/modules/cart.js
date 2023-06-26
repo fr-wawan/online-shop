@@ -26,6 +26,9 @@ const cart = {
           commit("SET_COUNT", response.data.count);
         })
         .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            return;
+          }
           console.log(error);
         });
     },

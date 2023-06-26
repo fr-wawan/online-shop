@@ -3,10 +3,11 @@
     <div
       class="shadow-md rounded-lg xl:w-[1000px] mx-auto w-full mb-10 bg-white p-10 lg:w-10/12"
       v-motion-fade
+      v-if="Object.keys(order).length > 0"
     >
       <h1 class="text-xl border-b pb-3 font-semibold">User Details</h1>
 
-      <div>
+      <div class="overflow-auto lg:overflow-hidden">
         <table class="border mt-5 w-full">
           <tr>
             <td class="w-52 border p-3">NO INVOICE</td>
@@ -15,19 +16,19 @@
           </tr>
           <tr>
             <td class="w-52 border p-3">FULL NAME</td>
-            <td class="w-10 border text-center">:</td>
+            <td class="md:w-10 w-52 p-3 border text-center">:</td>
             <td class="border px-6">
               {{ `${order.first_name} ${order.last_name}` }}
             </td>
           </tr>
           <tr>
             <td class="w-52 border p-3">PHONE NUMBER</td>
-            <td class="w-10 border text-center">:</td>
+            <td class="md:w-10 w-52 p-3 border text-center">:</td>
             <td class="border px-6">{{ order.phone }}</td>
           </tr>
           <tr>
             <td class="w-52 border p-3">REGION</td>
-            <td class="w-10 border text-center">:</td>
+            <td class="md:w-10 w-52 p-3 border text-center">:</td>
             <td class="border px-6">
               {{ `${order.country}, ${order.states}, ${order.city}` }}
             </td>
@@ -35,17 +36,17 @@
 
           <tr>
             <td class="w-52 border p-3">ADDRESS</td>
-            <td class="w-10 border text-center">:</td>
+            <td class="md:w-10 w-52 p-3 border text-center">:</td>
             <td class="border px-6">{{ order.address }}</td>
           </tr>
           <tr>
             <td class="w-52 border p-3">DELIVERY STATUS</td>
-            <td class="w-10 border text-center">:</td>
+            <td class="md:w-10 w-52 p-3 border text-center">:</td>
             <td class="border px-6">{{ uppercaseLetter(order.status) }}</td>
           </tr>
           <tr>
             <td class="w-52 border p-3">PAYMENT STATUS</td>
-            <td class="w-10 border text-center">:</td>
+            <td class="md:w-10 w-52 p-3 border text-center">:</td>
             <td class="border px-6">
               <div class="flex items-center gap-5">
                 <p>{{ order.payment_method.toUpperCase() }}</p>

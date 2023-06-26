@@ -55,14 +55,18 @@ const order = {
           formData
         );
 
-        return response;
+        return response.data.data;
       } catch (error) {
         throw error;
       }
     },
   },
 
-  getters: {},
+  getters: {
+    getInvoice(state) {
+      return state.order.invoice;
+    },
+  },
 };
 
 export default order;

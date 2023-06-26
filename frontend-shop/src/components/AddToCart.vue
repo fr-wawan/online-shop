@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      class="bg-white transition-all hover:text-white hover:bg-blue-500 border border-blue-500 p-2 text-blue-500 rounded-xl mx-3 my-3 px-10"
+      class="bg-white transition-all hover:text-white hover:bg-blue-500 border border-blue-500 p-2 text-blue-500 rounded-md mx-3 my-3 px-4 text-sm md:px-10 md:text-base"
       @click.prevent="addToCart(props.product)"
     >
       Add To Cart
@@ -11,6 +11,7 @@
 <script setup>
 import { useStore } from "vuex";
 import { useToast } from "vue-toastification";
+import { useRouter } from "vue-router";
 
 const props = defineProps({
   product: {
@@ -25,19 +26,24 @@ const props = defineProps({
 
 const store = useStore();
 const toast = useToast();
+const router = useRouter();
 
 function addToCart(product) {
-  let formData = new FormData();
-  formData.append("id", product.id);
-  formData.append("quantity", props.quantity);
+  if (store.getters["auth/isLoggedIn"]) {
+    let formData = new FormData();
+    formData.append("id", product.id);
+    formData.append("quantity", props.quantity);
 
-  store
-    .dispatch("cart/storeCart", formData)
-    .then(() => {
-      toast.success("Success!");
-    })
-    .catch(() => {
-      toast.error("Failed!");
-    });
+    store
+      .dispatch("cart/storeCart", formData)
+      .then(() => {
+        toast.success("Success!");
+      })
+      .catch(() => {
+        toast.error("Failed!");
+      });
+  } else {
+    router.push({ name: "login" });
+  }
 }
 </script>

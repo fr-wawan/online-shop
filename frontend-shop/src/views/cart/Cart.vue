@@ -8,13 +8,12 @@
     </p>
   </Hero>
   <div class="mt-5">
-    {{ carts }}
     <div
-      class="rounded-lg xl:w-[1000px] mx-auto w-full bg p-10 lg:w-10/12"
+      class="rounded-lg xl:w-[1000px] mx-auto w-full bg p-10 w- lg:w-10/12"
       v-motion-fade
     ></div>
 
-    <div class="w-7/12 mx-auto">
+    <div class="xl:w-7/12 w-10/12 mx-auto">
       <Table
         :headers="[
           'Delete',
@@ -60,20 +59,23 @@
         <h3>Cart Total : {{ formatPrice(total) }}</h3>
       </div>
 
-      <div class="my-5 flex gap-5 justify-end">
-        <router-link to="/" class="text-blue-500 rounded-md p-4 px-5">
+      <div
+        class="my-5 flex text-sm md:text-base md:gap-5 justify-end flex-col md:flex-row"
+      >
+        <router-link
+          to="/"
+          class="text-blue-500 rounded-md p-4 px-5 text-center md:text-left"
+        >
           Continue Shopping
         </router-link>
         <router-link
           v-if="carts.length > 0"
           to="/checkout"
-          class="bg-blue-500 hover:outline-1 outline hover: hover:outline-blue-500 hover:text-blue-500 hover:bg-white transition-all duration-300 ease-in-out rounded-md text-white p-4 px-5"
+          class="bg-blue-500 hover:outline-1 outline hover: hover:outline-blue-500 hover:text-blue-500 hover:bg-white transition-all duration-300 ease-in-out rounded-md text-white p-4 px-5 text-center md:text-left"
         >
           Proceed To Checkout
         </router-link>
       </div>
-
-      <div>tes</div>
     </div>
   </div>
 </template>

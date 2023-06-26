@@ -22,6 +22,4 @@ const props = defineProps({
     required: true,
   },
 });
-
-const arr = ["woi", "tes"];
 </script>
