@@ -53,11 +53,15 @@
                 <span>/</span>
                 <button
                   class="bg-blue-700 text-sm p-1.5 px-5 shadow rounded text-white"
-                  v-if="order.payment_method == 'midtrans'"
+                  v-if="
+                    order.payment_method == 'midtrans' &&
+                    order.payment_status == 'pending'
+                  "
                   @click.prevent="midtransPayment(order.snap_token)"
                 >
                   PAY NOW
                 </button>
+                <p v-else>Completed</p>
               </div>
             </td>
           </tr>
@@ -69,9 +73,11 @@
 
 <script setup>
 import { computed } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 const store = useStore();
+const router = useRouter();
 
 const order = computed(() => {
   return store.state.order.order;
@@ -80,13 +86,13 @@ const order = computed(() => {
 function midtransPayment(snapToken) {
   window.snap.pay(snapToken, {
     onSuccess: function () {
-      console.log("success");
+      router.push({ name: "orders" });
     },
     onPending: function () {
-      console.log("pending");
+      router.push({ name: "orders" });
     },
     onError: function () {
-      console.log("error");
+      router.push({ name: "orders" });
     },
   });
 }

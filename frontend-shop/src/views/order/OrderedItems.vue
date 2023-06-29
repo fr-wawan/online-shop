@@ -14,8 +14,8 @@
         />
         <h3 class="md:text-lg my-3 font-semibold">{{ product.title }}</h3>
 
-        <p class="mb-3">Quantity : {{ product.pivot.quantity }}</p>
-        <p class="flex mb-3 gap-2 items-center">
+        <p class="">Quantity : {{ product.pivot.quantity }}</p>
+        <p class="flex gap-2 items-center">
           {{ formatPrice(product.price) }} <span>x</span>
           {{ product.pivot.quantity }}
         </p>

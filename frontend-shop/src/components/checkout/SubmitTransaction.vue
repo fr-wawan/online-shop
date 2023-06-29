@@ -10,7 +10,7 @@
       class="p-3 bg-red-500 hover:outline outline-1 hover:outline-red-500 hover:text-red-500 transition-all duration-300 ease-in-out hover:bg-white w-full mt-5 text-white rounded"
       @click.prevent="submitTransaction('midtrans')"
     >
-      Pay With MIDTRANS
+      Pay With Gopay, DANA, OVO, etc
     </button>
   </div>
 </template>

@@ -19,7 +19,7 @@ class ProductFactory extends Factory
         return [
             'title' => $faker->vegetableName(),
             'slug' => $faker->slug,
-            'category_id' => 1,
+            'category_id' => $faker->numberBetween(1, 2),
             'price' => $faker->numberBetween(100, 1000),
             'stock' => $faker->numberBetween(0, 100),
             'description' => $faker->paragraph,

@@ -44,7 +44,7 @@ const order = {
           console.log(error);
         });
     },
-    async storeOrder({ commit }, { formData, paymentMethod }) {
+    async storeOrder({ dispatch }, { formData, paymentMethod }) {
       try {
         const token = localStorage.getItem("token");
 
@@ -55,6 +55,7 @@ const order = {
           formData
         );
 
+        await dispatch("cart/getCart", null, { root: true });
         return response.data.data;
       } catch (error) {
         throw error;
@@ -62,11 +63,7 @@ const order = {
     },
   },
 
-  getters: {
-    getInvoice(state) {
-      return state.order.invoice;
-    },
-  },
+  getters: {},
 };
 
 export default order;

@@ -61,7 +61,7 @@
 
           <Input
             name="password"
-            label="Password*"
+            label="Password Confirmation*"
             v-model="userData.password_confirmation"
             placeholder="**********"
             type="password"

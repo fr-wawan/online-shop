@@ -23,11 +23,19 @@ class TransactionController extends Controller
         $date_from  = $request->date_from;
         $date_to    = $request->date_to;
 
-        $transactions = Transaction::where('status', 'success')->whereDate('created_at', '>=', $request->date_from)->whereDate('created_at', '<=', $request->date_to)->get();
+        $transactions = Transaction::with('customer')->whereDate('created_at', '>=', $request->date_from)->whereDate('created_at', '<=', $request->date_to)->get();
 
         //get total donation by range date    
-        $total = Transaction::where('status', 'success')->whereDate('created_at', '>=', $request->date_from)->whereDate('created_at', '<=', $request->date_to)->sum('total');
+        $total = Transaction::with('customer')->whereDate('created_at', '>=', $request->date_from)->whereDate('created_at', '<=', $request->date_to)->sum('total');
 
         return view('admin.transaction.index', compact('transactions', 'total'));
+    }
+
+    public function show($invoice)
+    {
+        $transaction = Transaction::with('product')->where('invoice', $invoice)->first();
+
+
+        return view('admin.transaction.show', compact('transaction'));
     }
 }

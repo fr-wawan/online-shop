@@ -10,9 +10,12 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->when(request()->q, function ($products) {
-            $products = $products->where('title', 'like', '%' . request()->q . '%');
-        })->orderBy('title')->simplePaginate(8);
+        // $products = Product::with('category')->when(request()->q, function ($products) {
+
+        $products = Product::with(['category', 'transaction'])
+            ->withCount('transaction as transaction_count')
+            ->orderBy('transaction_count', 'desc')
+            ->simplePaginate(8);
 
         return response()->json([
             'success' => true,

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('invoice');
             $table->string('first_name');
             $table->string('last_name');
-            $table->integer('phone');
+            $table->string('phone');
             $table->integer('post_code');
             $table->text('address');
             $table->string('country');

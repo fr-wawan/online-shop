@@ -52,34 +52,41 @@
                     <thead class="justify-between">
                         <tr class="bg-gray-600 w-full">
                             <th class="px-16 py-2">
+                                <span class="text-white">INVOICE</span>
+                            </th>
+                            <th class="px-16 py-2">
                                 <span class="text-white">NAMA CUSTOMER</span>
                             </th>
-                            <th class="px-16 py-2 text-left">
-                                <span class="text-white">CAMPAIGN</span>
-                            </th>
+
                             <th class="px-16 py-2 text-left">
                                 <span class="text-white">TANGGAL</span>
                             </th>
                             <th class="px-16 py-2 text-center">
-                                <span class="text-white">JUMLAH DONASI</span>
+                                <span class="text-white">TOTAL</span>
+                            </th>
+                            <th class="px-16 py-2 text-center">
+                                <span class="text-white">ACTIONS</span>
                             </th>
                         </tr>
                     </thead>
                     <tbody class="bg-gray-200">
                         @forelse($transactions as $transaction)
                         <tr class="border bg-white">
-
+                            <td class="px-16 py-2 text-center">
+                                {{ $transaction->invoice }}
+                            </td>
                             <td class="px-16 py-2 flex justify-center">
-                                {{ $transaction->customer->name }}
+                                {{ $transaction->first_name }} {{ $transaction->last_name }}
                             </td>
-                            <td class="px-16 py-2">
-                                {{ $transaction->product->title }}
-                            </td>
+
                             <td class="px-16 py-2">
                                 {{ $transaction->created_at }}
                             </td>
-                            <td class="px-5 py-2 text-right">
+                            <td class="px-5 py-2 text-center">
                                 {{ moneyFormat($transaction->total) }}
+                            </td>
+                            <td class="px-5 py-2 text-center">
+                                <a href="{{ route('admin.transaction.show',$transaction->invoice) }}">View</a>
                             </td>
                         </tr>
                         @empty
@@ -87,14 +94,6 @@
                             Data Belum Tersedia!
                         </div>
                         @endforelse
-                        <tr class="border bg-gray-600 text-white font-bold">
-                            <td colspan="3" class="px-5 py-2 justify-center">
-                                TOTAL DONASI
-                            </td>
-                            <td colspan="3" class="px-5 py-2 text-right">
-                                {{ moneyFormat($total) }}
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>

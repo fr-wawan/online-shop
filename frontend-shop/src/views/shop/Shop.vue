@@ -21,7 +21,6 @@
           :product="product"
           v-for="product in products"
           :key="product.id"
-          v-motion-slide-bottom
         />
       </div>
       <div v-else class="flex flex-wrap gap-5">
