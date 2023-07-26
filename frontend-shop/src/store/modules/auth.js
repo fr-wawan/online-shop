@@ -29,13 +29,11 @@ const auth = {
     },
   },
   actions: {
-    register({ commit }, user) {
-      return new Promise((resolve, reject) => {
-        Api.post("/register", {
-          username: user.username,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          phone: user.phone,
+    async register({ commit }, user) {
+      try {
+        const response = await Api.post("/register",{
+          first_name : user.first_name,
+          last_name : user.last_name,
           post_code: user.post_code,
           address: user.address,
           country: user.countryName,
@@ -44,65 +42,83 @@ const auth = {
           email: user.email,
           password: user.password,
           password_confirmation: user.password_confirmation,
-        })
-          .then((response) => {
-            const token = response.data.token;
-            const user = response.data.data;
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
+        });
+        const token = response.data.token;
+        const userData = response.data.data;
 
-            Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        localStorage.setItem("token",token);
+        localStorage.setItem("user",JSON.stringify(userData));
 
-            commit("AUTH_SUCCESS", token, user);
-            commit("GET_USER", user);
-            resolve(response);
-          })
-          .catch((error) => {
-            localStorage.removeItem("token");
-            reject(error.response.data);
-          });
-      });
+        Api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        commit("AUTH_SUCCESS",token,user);
+        commit("GET_USER",user);
+
+        return response;
+      } catch (error) {
+        localStorage.removeItem("token");
+        throw error.response.data;
+      }
     },
 
-    login({ commit }, user) {
-      return new Promise((resolve, reject) => {
-        Api.post("/login", {
-          email: user.email,
-          password: user.password,
+    async login({ commit }, user) {
+      // return new Promise((resolve, reject) => {
+      //   Api.post("/login", {
+      //     email: user.email,
+      //     password: user.password,
+      //   })
+      //     .then((response) => {
+      //       const token = response.data.token;
+      //       const user = response.data.data;
+
+      //       localStorage.setItem("token", token);
+      //       localStorage.setItem("user", JSON.stringify(user));
+
+      //       Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      //       commit("AUTH_SUCCESS", token, user);
+
+      //       commit("GET_USER", user);
+
+      //       resolve(response);
+      //     })
+      //     .catch((error) => {
+      //       localStorage.removeItem("token");
+      //       reject(error.response.data);
+      //     });
+      // });
+
+      try {
+        const response = await Api.post("/login",{
+          email : user.email,
+          password : user.password,
         })
-          .then((response) => {
-            const token = response.data.token;
-            const user = response.data.data;
 
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
+        const token = response.data.token;
+        const userData = response.data.data;
 
-            Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        localStorage.setItem("token",token);
+        localStorage.setItem("user",JSON.stringify(userData));
 
-            commit("AUTH_SUCCESS", token, user);
+        Api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-            commit("GET_USER", user);
+        commit("AUTH_SUCCESS",token,user);
+        commit("GET_USER",user);
 
-            resolve(response);
-          })
-          .catch((error) => {
-            localStorage.removeItem("token");
-            reject(error.response.data);
-          });
-      });
+        return response;
+      } catch (error) {
+        localStorage.removeItem("token");
+        throw error.response.data;
+      }
     },
 
     logout({ commit }) {
-      return new Promise((resolve) => {
         commit("AUTH_LOGOUT");
 
         localStorage.removeItem("token");
         localStorage.removeItem("user");
 
         delete Api.defaults.headers.common["Authorization"];
-
-        resolve();
-      });
     },
   },
 

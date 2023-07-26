@@ -7,11 +7,7 @@
 
     <div v-for="product in order.product" class="border-b pb-5">
       <div class="flex flex-col md:flex-row justify-between items-center mt-5">
-        <img
-          :src="`https://source.unsplash.com/1200x1000?${product.title}`"
-          class="rounded-lg w-20"
-          alt=""
-        />
+        <img :src="product.image" class="rounded-lg w-20" alt="" />
         <h3 class="md:text-lg my-3 font-semibold">{{ product.title }}</h3>
 
         <p class="">Quantity : {{ product.pivot.quantity }}</p>

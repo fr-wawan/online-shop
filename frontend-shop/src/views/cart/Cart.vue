@@ -8,23 +8,18 @@
     </p>
   </Hero>
   <div class="mt-5">
-    <div
-      class="rounded-lg xl:w-[1000px] mx-auto w-full bg p-10 w- lg:w-10/12"
-      v-motion-fade
-    ></div>
+    <div class="rounded-lg xl:w-[1000px] mx-auto w-full bg p-10 w- lg:w-10/12" v-motion-fade></div>
 
     <div class="xl:w-7/12 w-10/12 mx-auto">
-      <Table
-        :headers="[
-          'Delete',
-          'Image',
-          'Products Name',
-          'Price',
-          'Quantity',
-          'Sub Total',
-        ]"
-      >
-        <tr class="text-gray-500" v-for="cart in carts">
+      <Table :headers="[
+        'Delete',
+        'Image',
+        'Products Name',
+        'Price',
+        'Quantity',
+        'Sub Total',
+      ]">
+        <tr class="text-gray-500" v-for="cart in carts" :key="cart.id">
           <td class="p-3">
             <div class="flex justify-center items-center">
               <a @click="deleteCart(cart)" class="cursor-pointer">
@@ -33,11 +28,7 @@
             </div>
           </td>
           <td class="p-3 text-center border">
-            <img
-              :src="`https://source.unsplash.com/1200x1000?${cart.product.title}`"
-              class="mx-auto rounded-lg w-14"
-              alt=""
-            />
+            <img :src="cart.product.image" class="mx-auto rounded-lg w-14" alt="" />
           </td>
           <td class="p-3 text-center border">
             {{ cart.product.title }}
@@ -59,20 +50,12 @@
         <h3>Cart Total : {{ formatPrice(total) }}</h3>
       </div>
 
-      <div
-        class="my-5 flex text-sm md:text-base md:gap-5 justify-end flex-col md:flex-row"
-      >
-        <router-link
-          to="/"
-          class="text-blue-500 rounded-md p-4 px-5 text-center md:text-left"
-        >
+      <div class="my-5 flex text-sm md:text-base md:gap-5 justify-end flex-col md:flex-row">
+        <router-link to="/" class="text-blue-500 rounded-md p-4 px-5 text-center md:text-left">
           Continue Shopping
         </router-link>
-        <router-link
-          v-if="carts.length > 0"
-          to="/checkout"
-          class="bg-blue-500 hover:outline-1 outline hover: hover:outline-blue-500 hover:text-blue-500 hover:bg-white transition-all duration-300 ease-in-out rounded-md text-white p-4 px-5 text-center md:text-left"
-        >
+        <router-link v-if="carts.length > 0" to="/checkout"
+          class="bg-blue-500 hover:outline-1 outline hover: hover:outline-blue-500 hover:text-blue-500 hover:bg-white transition-all duration-300 ease-in-out rounded-md text-white p-4 px-5 text-center md:text-left">
           Proceed To Checkout
         </router-link>
       </div>
@@ -89,7 +72,6 @@ import Hero from "../../components/Hero.vue";
 import Quantity from "../../components/cart/QuantityCart.vue";
 import DeleteIcon from "../../components/Logo/DeleteIcon.vue";
 import Table from "../../components/Table.vue";
-import { ContentLoader } from "vue-content-loader";
 
 const store = useStore();
 const toast = useToast();

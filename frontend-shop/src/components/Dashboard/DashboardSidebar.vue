@@ -1,10 +1,5 @@
 <template>
-  <div class="md:w-3/12 w-9/12 mx-auto">
-    <DashboardTab link="dashboard">
-      <DashboardIcon />
-      Dashboard
-    </DashboardTab>
-
+  <div class="md:w-6/12 w-10/12 mx-auto">
     <DashboardTab link="profile">
       <ProfileIcon />
       Profile
@@ -12,7 +7,7 @@
 
     <DashboardTab link="orders">
       <OrderIcon />
-      My Order
+      Order
     </DashboardTab>
 
     <a

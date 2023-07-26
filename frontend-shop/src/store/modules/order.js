@@ -31,12 +31,12 @@ const order = {
           console.log(error);
         });
     },
-    async detailsProduct({ commit }, invoice) {
+     detailsProduct({ commit }, invoice) {
       const token = localStorage.getItem("token");
 
       Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-      await Api.get(`/transaction/${invoice}`)
+       Api.get(`/transaction/${invoice}`)
         .then((response) => {
           commit("SET_DETAILS", response.data.data);
         })

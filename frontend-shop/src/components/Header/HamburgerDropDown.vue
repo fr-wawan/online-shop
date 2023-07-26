@@ -22,12 +22,12 @@
 
       <router-link
         v-if="store.getters['auth/isLoggedIn']"
-        to="/dashboard"
+        to="/profile"
         active-class="text-blue-500"
         class="bg-gray-800 flex justify-center gap-3 p-3 text-white rounded-lg"
       >
         <DashboardIcon />
-        Dashboard</router-link
+        Profile</router-link
       >
       <div v-else class="flex gap-5 items-center justify-center">
         <router-link

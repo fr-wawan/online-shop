@@ -32,45 +32,40 @@ const profile = {
           console.log(error);
         });
     },
-    updateProfile({ commit }, formData) {
-      return new Promise((resolve, reject) => {
+    async updateProfile({ commit }, formData) {
+      try {
         const token = localStorage.getItem("token");
+        Api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-        Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        const response = await Api.post("/profile",formData);
 
-        Api.post("/profile", formData)
-          .then((response) => {
-            const user = response.data.data;
-            localStorage.setItem("user", JSON.stringify(user));
-            commit("SET_PROFILE", response.data.data);
+        const user = response.data.data;
+        localStorage.setItem("user",JSON.stringify(user));
 
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error.response.data);
-          });
-      });
+        commit("SET_PROFILE",response.data.data);
+
+        return response;
+      } catch (error) {
+        throw error.response.data;
+      }
     },
 
-    updatePassword({ commit }, userPassword) {
-      return new Promise((resolve, reject) => {
-        const token = localStorage.getItem("token");
+    async updatePassword({ commit }, userPassword) {
+      try {        const token = localStorage.getItem("token");
 
         Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-        Api.post("/profile/password", {
-          password: userPassword.password,
-          password_confirmation: userPassword.password_confirmation,
+        const response = await Api.post("/profile/password",{
+          password : userPassword.password,
+          password_confirmation : userPassword.password_confirmation
         })
-          .then((response) => {
-            commit("SET_PROFILE", response.data.data);
 
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error.response.data);
-          });
-      });
+        commit("SET_PROFILE",response.data.data);
+
+        return response;
+      } catch (error) {
+        throw error.response.data;
+      }
     },
   },
 

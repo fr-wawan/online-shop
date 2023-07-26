@@ -38,4 +38,12 @@ class TransactionController extends Controller
 
         return view('admin.transaction.show', compact('transaction'));
     }
+    function updateStatus($id, Request $request)
+    {
+        $transaction = Transaction::findOrFail($id);
+
+        $transaction->update([
+            'status' => $request->input('status')
+        ]);
+    }
 }

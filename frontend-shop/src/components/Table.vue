@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-auto lg:overflow-hidden">
+  <div class="overflow-auto">
     <table class="w-full border">
       <thead>
         <tr>

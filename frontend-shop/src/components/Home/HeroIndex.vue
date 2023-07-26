@@ -15,7 +15,7 @@
 .hero {
   width: 100%;
   background: linear-gradient(rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.8)),
-    url("../../assets/images/HeroIndex.jpg");
+    url("../../assets/images/HeroIndex-min.jpg");
   background-position: center top;
   height: 600px;
 }

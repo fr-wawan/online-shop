@@ -14,7 +14,7 @@ class CartController extends Controller
     {
         $carts = Cart::with('product')->where('customer_id', auth()->guard('api')->user()->id)->get();
 
-        $cartsCount = Cart::count();
+        $cartsCount = Cart::where('customer_id', auth()->guard('api')->user()->id)->count();
 
         return response()->json([
             'success' => true,

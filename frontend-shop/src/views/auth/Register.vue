@@ -17,80 +17,37 @@
         <Button link="login">Login</Button>
       </div>
     </div>
-    <PageTransition>
-      <div
-        class="bg-white shadow-md p-5 rounded-md mx-5 md:mx-auto md:w-10/12 xl:w-4/12 mt-14 xl:mt-0"
-      >
-        <h1 class="text-center text-3xl font-semibold my-3 mb-10">
-          Register Your Account
-        </h1>
+    <div class="bg-white shadow-md p-5 rounded-md mx-5 md:mx-auto md:w-10/12 xl:w-4/12 mt-14 xl:mt-0">
+      <h1 class="text-center text-3xl font-semibold my-3 mb-10">
+        Register Your Account
+      </h1>
 
-        <form action="" @submit.prevent="register">
-          <Input
-            name="username"
-            label="Username*"
-            v-model="userData.username"
-            placeholder="Your Username"
-          ></Input>
-          <Input
-            name="first_name"
-            label="First Name*"
-            v-model="userData.first_name"
-            placeholder="Your First Name"
-          ></Input>
-          <Input
-            name="last_name"
-            label="Last Name*"
-            v-model="userData.last_name"
-            placeholder="Your Last Name"
-          ></Input>
-          <Input
-            name="email"
-            label="Email*"
-            v-model="userData.email"
-            placeholder="Your Email"
-            type="email"
-          ></Input>
-          <Input
-            name="password"
-            label="Password*"
-            v-model="userData.password"
-            placeholder="*********"
-            type="password"
-          ></Input>
+      <form action="" @submit.prevent="register">
+        <template v-for="input in registerForm" :key="input.name">
+          <Input :name="input.name" :label="input.label" v-model="userData[input.name]" :placeholder="input.placeholder"
+            :type="input.type" />
+        </template>
 
-          <Input
-            name="password"
-            label="Password Confirmation*"
-            v-model="userData.password_confirmation"
-            placeholder="**********"
-            type="password"
-          ></Input>
 
-          <button
-            class="w-full bg-blue-500 p-4 text-white font-semibold rounded mb-10 mt-3"
-          >
-            CREATE AN ACCOUNT
-          </button>
-        </form>
-      </div>
-    </PageTransition>
+        <button class="w-full bg-blue-500 p-4 text-white font-semibold rounded mb-10 mt-3">
+          CREATE AN ACCOUNT
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
 <script setup>
-import Hero from "../../components/Hero.vue";
-import Button from "../../components/Button.vue";
-import PageTransition from "../../components/PageTransition.vue";
-import Input from "../../components/Input.vue";
-
+import { ref, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { useToast } from "vue-toastification";
-import { ref, reactive } from "vue";
+
+import Hero from "../../components/Hero.vue";
+import Button from "../../components/Button.vue";
+import Input from "../../components/Input.vue";
 
 let userData = reactive({
-  username: "",
   first_name: "",
   last_name: "",
   email: "",
@@ -104,7 +61,41 @@ const store = useStore();
 const router = useRouter();
 const toast = useToast();
 
-function register() {
+
+const registerForm = [
+  {
+    name: "first_name",
+    label: "First Name*",
+    placeholder: "Your First Name",
+    type: "text"
+  },
+  {
+    name: "last_name",
+    label: "Last Name*",
+    placeholder: "Your Last Name",
+    type: "text"
+  },
+  {
+    name: "email",
+    label: "Email*",
+    placeholder: "Your Email",
+    type: "email"
+  },
+  {
+    name: "password",
+    label: "Password*",
+    placeholder: "Your Password",
+    type: "password"
+  },
+  {
+    name: "password_confirmation",
+    label: "Password Confirmation*",
+    placeholder: "Your Password Confirmation",
+    type: "password"
+  },
+]
+
+async function register() {
   const {
     username,
     first_name,
@@ -114,7 +105,7 @@ function register() {
     password_confirmation,
   } = userData;
 
-  store
+  await store
     .dispatch("auth/register", {
       username,
       first_name,
@@ -124,7 +115,7 @@ function register() {
       password_confirmation,
     })
     .then(() => {
-      router.push({ name: "dashboard" });
+      router.push({ name: "profile" });
       toast.success("Register Successful");
     })
     .catch((error) => {

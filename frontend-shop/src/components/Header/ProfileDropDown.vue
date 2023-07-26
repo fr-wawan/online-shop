@@ -6,11 +6,7 @@
     v-click-outside-element="closeDropDown"
   >
     <img
-      :src="
-        profile?.avatar?.includes('storage')
-          ? `http://localhost:8000${profile.avatar}`
-          : profile.avatar
-      "
+      :src="profile.avatar"
       class="rounded-full w-9 cursor-pointer object-cover"
     />
     <DownIcon />
@@ -19,14 +15,6 @@
       v-if="isDropDown"
     >
       <ul class="py-2 text-sm text-gray-700">
-        <li>
-          <router-link
-            :to="{ name: 'dashboard' }"
-            class="block px-4 py-2 hover:bg-gray-200"
-            >Dashboard</router-link
-          >
-        </li>
-
         <li>
           <router-link
             :to="{ name: 'profile' }"

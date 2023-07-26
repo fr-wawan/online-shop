@@ -18,36 +18,22 @@
       </div>
     </div>
 
-    <PageTransition>
-      <div
-        class="bg-white shadow-md p-5 rounded-md mx-5 md:mx-auto md:w-10/12 xl:w-4/12 mt-14 xl:mt-0"
-      >
-        <h1 class="text-center text-3xl font-semibold my-3 mb-10">
-          Login Your Account
-        </h1>
-        <form action="" @submit.prevent="login">
-          <Input
-            name="email"
-            label="Email*"
-            v-model="userData.email"
-            placeholder="Your Email"
-          ></Input>
-          <Input
-            name="password"
-            label="Password*"
-            v-model="userData.password"
-            placeholder="**********"
-            type="password"
-          ></Input>
+    <div class="bg-white shadow-md p-5 rounded-md mx-5 md:mx-auto md:w-10/12 xl:w-4/12 mt-14 xl:mt-0">
+      <h1 class="text-center text-3xl font-semibold my-3 mb-10">
+        Login Your Account
+      </h1>
+      <form action="" @submit.prevent="login">
+        <template v-for="input in loginForm" :key="input.name">
+          <Input :name="input.name" :label="input.label" v-model="userData[input.name]" :placeholder="input.placeholder"
+            :type="input.type" />
+        </template>
 
-          <button
-            class="w-full bg-blue-500 p-4 text-white font-semibold rounded mb-10 mt-3"
-          >
-            CREATE AN ACCOUNT
-          </button>
-        </form>
-      </div>
-    </PageTransition>
+
+        <button class="w-full bg-blue-500 p-4 text-white font-semibold rounded mb-10 mt-3">
+          CREATE AN ACCOUNT
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -57,7 +43,6 @@ import { useToast } from "vue-toastification";
 import { useRouter } from "vue-router";
 import { reactive, ref } from "vue";
 
-import PageTransition from "../../components/PageTransition.vue";
 import Input from "../../components/Input.vue";
 import Hero from "../../components/Hero.vue";
 import Button from "../../components/Button.vue";
@@ -68,37 +53,46 @@ const toast = useToast();
 
 let validation = ref([]);
 
-// Data for binding input
 let userData = reactive({
   email: "",
-  password: "",
+  password: ""
 });
 
-function login() {
+const loginForm = [
+  {
+    name: "email",
+    label: "Email*",
+    placeholder: "Your Email",
+    type: "email"
+  },
+  {
+    name: "password",
+    label: "Password*",
+    placeholder: "Your Password",
+    type: "password"
+  },
+]
+
+
+async function login() {
   const { email, password } = userData;
 
-  store
+  await store
     .dispatch("auth/login", {
       email,
       password,
     })
     .then(() => {
-      router.push({ name: "dashboard" });
+      router.push({ name: "profile" });
       toast.success("Login Successful");
     })
     .catch((error) => {
       validation.value = error;
 
-      if (validation.value.email) {
-        toast.error(`${validation.value.email[0]}`);
-      }
-
-      if (validation.value.password) {
-        toast.error(`${validation.value.password[0]}`);
-      }
-
-      if (validation.value.message) {
-        toast.error(`${validation.value.message}`);
+      for (const field in validation.value) {
+        if (validation.value[field] !== true) {
+          toast.error(`${validation.value[field]}`);
+        }
       }
     });
 }

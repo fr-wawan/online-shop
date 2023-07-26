@@ -110,7 +110,7 @@ import { reactive, onMounted, computed } from "vue";
 import { useStore } from "vuex";
 
 import Input from "./Input.vue";
-import countryData from "../data/countries+states+cities.json";
+import countryData from "../data/data-indonesia.json";
 
 const countries = countryData;
 const store = useStore();

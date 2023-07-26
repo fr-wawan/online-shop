@@ -3,6 +3,7 @@
     <button
       type="button"
       class="w-10 h-10 leading-10 text-gray-600 transition hover:opacity-75"
+      :disabled="quantity == 1"
       @click="$emit('decrementQuantity', $event.target.value)"
     >
       &minus;
@@ -33,6 +34,10 @@ import { useStore } from "vuex";
 const store = useStore();
 const props = defineProps({
   modelValue: {
+    type: Number,
+    required: true,
+  },
+  quantity: {
     type: Number,
     required: true,
   },

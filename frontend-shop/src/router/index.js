@@ -14,14 +14,6 @@ const routes = [
     component: () => import("../views/auth/Login.vue"),
   },
   {
-    path: "/dashboard",
-    name: "dashboard",
-    component: () => import("../views/dashboard/Dashboard.vue"),
-    meta: {
-      requiresAuth: true,
-    },
-  },
-  {
     path: "/profile",
     name: "profile",
     component: () => import("../views/profile/Profile.vue"),
@@ -53,7 +45,7 @@ const routes = [
   {
     path: "/product/:slug",
     name: "detailsProduct",
-    component: () => import("../views/home/DetailsProduct.vue"),
+    component: () => import("../views/Home/DetailsProduct.vue"),
   },
   {
     path: "/shop",
@@ -68,7 +60,7 @@ const routes = [
   {
     path: "/contact",
     name: "contact",
-    component: () => import("../views/contact/Contact.vue"),
+    component: () => import("../views/Contact/Contact.vue"),
   },
   {
     path: "/cart",

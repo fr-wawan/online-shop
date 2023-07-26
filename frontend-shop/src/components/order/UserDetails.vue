@@ -76,6 +76,10 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
+
 const store = useStore();
 const router = useRouter();
 
@@ -87,12 +91,15 @@ function midtransPayment(snapToken) {
   window.snap.pay(snapToken, {
     onSuccess: function () {
       router.push({ name: "orders" });
+      toast.success("Success!");
     },
     onPending: function () {
       router.push({ name: "orders" });
+      toast.error("Pending!");
     },
     onError: function () {
       router.push({ name: "orders" });
+      toast.error("Error!");
     },
   });
 }

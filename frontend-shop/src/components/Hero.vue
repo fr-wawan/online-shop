@@ -16,7 +16,7 @@ export default {
 .hero {
   width: 100%;
   background: linear-gradient(rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.8)),
-    url("../assets/images/hero-images.jpg");
+    url("../assets/images/hero-images-min.jpg");
   background-position: center top;
   height: 580px;
 }

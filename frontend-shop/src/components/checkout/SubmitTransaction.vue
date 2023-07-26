@@ -53,7 +53,7 @@ const mappedCarts = computed(() => {
   });
 });
 
-function submitTransaction(paymentMethod) {
+async function submitTransaction(paymentMethod) {
   let formData = new FormData();
 
   formData.append("first_name", profile.value.first_name);
@@ -74,7 +74,7 @@ function submitTransaction(paymentMethod) {
 
   formData.append("total", total.value);
 
-  store
+  await store
     .dispatch("order/storeOrder", { formData, paymentMethod })
     .then((response) => {
       router.push({

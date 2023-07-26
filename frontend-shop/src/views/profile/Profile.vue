@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <Hero>
+  <div class="overflow-x-hidden">
+    <Hero class="overflow-x-hidden">
       <h1 class="text-5xl font-semibold">My Account</h1>
       <p class="text-gray-400 mt-5 flex items-center justify-center">
         Home
@@ -9,13 +9,13 @@
       </p>
     </Hero>
 
-    <div class="xl:flex mt-20 xl:w-7/12 gap-5 mx-auto">
+    <div class="xl:flex mt-20 xl:w-8/12 gap-5 mx-auto">
       <DashboardSidebar></DashboardSidebar>
 
       <div>
         <div
           v-motion-fade
-          class="shadow-md xl:w-[1000px] rounded-lg mx-auto w-full lg:w-10/12 bg-white p-5"
+          class="shadow-md min-[1500px]:w-[1000px] min-[1270px]:w-[700px] min-[1280px]:mr-64 rounded-lg mx-auto w-full lg:w-10/12 bg-white p-5"
         >
           <div>
             <h1 class="text-xl font-semibold">Profile</h1>
@@ -27,11 +27,7 @@
             >
               <div class="md:flex items-center gap-5 mt-5">
                 <img
-                  :src="
-                    profile?.avatar?.includes('storage')
-                      ? `http://localhost:8000${profile.avatar}`
-                      : profile.avatar
-                  "
+                  :src="profile.avatar"
                   class="rounded-full w-20 h-20 object-cover"
                   v-if="Object.keys(profile).length > 0"
                 />
@@ -58,7 +54,7 @@
         </div>
 
         <div
-          class="shadow-md rounded-lg mx-auto w-full bg-white p-5 mt-10 xl:w-[1000px] lg:w-10/12"
+          class="shadow-md min-[1500px]:w-[1000px] min-[1270px]:w-[700px] min-[1280px]:mr-64 rounded-lg mx-auto w-full lg:w-10/12 bg-white p-5 mt-10"
         >
           <h1 class="text-xl font-semibold">Change Password</h1>
 

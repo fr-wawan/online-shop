@@ -32,21 +32,21 @@ const cart = {
           console.log(error);
         });
     },
-    storeCart({ dispatch }, formData) {
-      return new Promise((resolve, reject) => {
-        const token = localStorage.getItem("token");
+    async storeCart({ dispatch }, formData) {
 
-        Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      try {
+       const token = localStorage.getItem("token");
 
-        Api.post("/cart", formData)
-          .then((response) => {
-            dispatch("getCart");
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error.response.data);
-          });
-      });
+       Api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+       const response = await Api.post("/cart",formData);
+
+       dispatch("getCart");
+
+       return response;
+      } catch (error) {
+        throw error.response.data;
+      }
     },
     async updateCart({ commit }, formData) {
       try {

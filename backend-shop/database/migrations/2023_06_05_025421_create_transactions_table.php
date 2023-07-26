@@ -28,7 +28,7 @@ return new class extends Migration
             $table->timestamp("order_placed_at")->useCurrent();
             $table->string('snap_token')->nullable();
             $table->text('user_notes')->nullable();
-            $table->enum('status', ['pending', 'success', 'expired', 'failed']);
+            $table->enum('status', ['pending', 'success', 'failed', 'cancelled']);
             $table->enum('payment_status', ['pending', 'success', 'failed'])->default('pending');
             $table->timestamps();
         });

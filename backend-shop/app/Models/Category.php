@@ -8,21 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    protected $fillable = [
-        'name', 'image', 'slug'
-    ];
+  protected $fillable = [
+    'name', 'image', 'slug'
+  ];
 
-    public function product()
-    {
-        return $this->hasMany(Product::class);
-    }
+  public function product()
+  {
+    return $this->hasMany(Product::class);
+  }
 
-    protected function image(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => asset('/storage/categories/' . $value),
-        );
-    }
+  protected function image(): Attribute
+  {
+    return Attribute::make(
+      get: fn ($value) => asset('/storage/categories/' . $value),
+    );
+  }
 }
